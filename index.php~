@@ -1,0 +1,46 @@
+<?php
+$n = 10; //redove
+$m = 10; //koloni
+const HORIZONTAL = 0;
+const VERTICAL = 1;
+
+$shipLength = 5;
+
+$field = array();
+$start[HORIZONTAL] = array();
+$start[VERTICAL] = array();
+
+for($i=0;$i<$n;$i++){ //red
+	for($j=0;$j<$m;$j++){ //kolona
+		if(($j + $shipLength) <= $m){
+			for($k=0;$k<$shipLength;$k++){
+				if(isset($field[$i][$j+$k]))
+					continue 2;
+			}
+			$start[HORIZONTAL][$i][$j] = 1;
+		}
+	}
+}
+
+for($j=0;$j<$m;$j++){ //kolona
+	for($i=0;$i<$n;$i++){ //red
+		if(($j + $shipLength) <= $n){
+			for($k=0;$k<$shipLength;$k++){
+				if(isset($field[$i][$j+$k]))
+					continue 2;
+			}
+			$start[VERTICAL][$i][$j] = 1;
+		}
+	}
+}
+
+echo '<pre>';
+print_r($start);
+echo '</pre>';
+
+$choiceOrientation = rand(0, 1);
+$rowNum = array_rand(array_keys($start[$choiceOrientation]));
+$cowNum = array_rand(array_keys($start[$choiceOrientation][$rowNum]));
+
+echo sprintf('orientation: %s, row: %s, col: %s', $choiceOrientation, $rowNum, $cowNum);
+?>
