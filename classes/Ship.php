@@ -6,7 +6,8 @@ namespace BattleShips;
  * Class Ship
  * @package BattleShips
  */
-class Ship {
+class Ship
+{
     private $_name;
     private $_length;
     private $_sectors;
@@ -38,18 +39,22 @@ class Ship {
         return $this->_name;
     }
 
-    public function setSector($row, $col){
+    public function setSector($row, $col)
+    {
         $this->_sectors[$row][$col] = 1;
     }
 
-    public function checkSector($row, $col){
+    public function checkSector($row, $col)
+    {
         if(isset($this->_sectors[$row][$col]))
+
             return true;
 
         return false;
     }
 
-    public function isSunk(){
+    public function isSunk()
+    {
         if ($this->shots < $this->_length)
             return false;
 

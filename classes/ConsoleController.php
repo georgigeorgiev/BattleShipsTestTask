@@ -6,7 +6,8 @@ namespace BattleShips;
  * Class ConsoleController
  * @package BattleShips
  */
-class ConsoleController {
+class ConsoleController
+{
     const CHEAT_SHOW = 'SHOW';
     private static $_adapter;
     private static $_allowedCommands;
@@ -15,7 +16,8 @@ class ConsoleController {
     private static $_totalHitShots = 0;
     private static $_totalShots = 0;
 
-    public static function init(){
+    public static function init()
+    {
         self::$_adapter = ConsoleAdapter::getInstance();
         self::$_battleField = BattleField::getInstance(self::$_adapter);
 
@@ -41,7 +43,8 @@ class ConsoleController {
         self::_requestAndProcessUserInput();
     }
 
-    private static function _requestAndProcessUserInput(){
+    private static function _requestAndProcessUserInput()
+    {
         self::$_battleField->drawField();
         $userInput = self::$_adapter->requestInput('Enter coordinates (row, col), e.g. A5 = ');
 
@@ -67,18 +70,18 @@ class ConsoleController {
             self::$_adapter->writeLine("Well done! You completed game in " . self::$_totalShots . " shots.");
     }
 
-    private static function  _processUserInput($getUserInput){
-
+    private static function _processUserInput($getUserInput)
+    {
         $getUserInput = trim(strtoupper($getUserInput));
-        if(!in_array($getUserInput, self::$_allowedCommands)){
+        if (!in_array($getUserInput, self::$_allowedCommands)) {
             throw new \UnexpectedValueException('Not allowed user input');
         }
 
         $result = false;
 
-        if($getUserInput == self::CHEAT_SHOW){
+        if ($getUserInput == self::CHEAT_SHOW) {
             self::$_battleField->drawField(BattleField::MODE_TRANSPARENT_MAP);
-        }else{
+        } else {
             preg_match("/[A-Z]{1,}/", $getUserInput, $rowLabel);
             preg_match("/[0-9]{1,}/", $getUserInput, $colLabel);
 
@@ -88,27 +91,30 @@ class ConsoleController {
         return $result;
     }
 
-    private static function _processHitShot(){
+    private static function _processHitShot()
+    {
         self::$_totalHitShots += 1;
         self::$_totalShots += 1;
         self::$_adapter->writeLine("Right on the target!");
     }
 
-    private static function _processMissShot(){
+    private static function _processMissShot()
+    {
         self::$_totalShots += 1;
         self::$_adapter->writeLine("Missed!");
     }
 
-    private static function _processSunkShot(){
+    private static function _processSunkShot()
+    {
         self::$_totalShots += 1;
         self::$_totalHitShots += 1;
         self::$_adapter->writeLine("Sunk!");
     }
 
-
-    private static function _generateShotCodes($rowLabels, $numRows, $numCols){
-        for ($i = 1; $i <=$numRows; $i++){
-            for ($j = 1; $j <=$numCols; $j++){
+    private static function _generateShotCodes($rowLabels, $numRows, $numCols)
+    {
+        for ($i = 1; $i <=$numRows; $i++) {
+            for ($j = 1; $j <=$numCols; $j++) {
                 self::$_allowedCommands[] = $rowLabels[$i - 1] . $j;
             }
         }

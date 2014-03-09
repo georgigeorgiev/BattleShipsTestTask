@@ -6,7 +6,8 @@ namespace BattleShips;
  * Class BattleField
  * @package BattleShips
  */
-class BattleField {
+class BattleField
+{
     const ROWS = 10;
     const COLS = 10;
 
@@ -32,21 +33,22 @@ class BattleField {
     private $_shots;
     private $_outputAdapter;
 
-
     /**
      * Singleton class instance
      * @param $outputAdapter
      * @return BattleField
      */
-    public static function getInstance($outputAdapter){
-        if(!isset(self::$_instance)){
+    public static function getInstance($outputAdapter)
+    {
+        if (!isset(self::$_instance)) {
             self::$_instance = new BattleField($outputAdapter);
         }
 
         return self::$_instance;
     }
 
-    private function  __construct($outputAdapter){
+    private function __construct($outputAdapter)
+    {
         $this->_outputAdapter = $outputAdapter;
         $this->_field = array();
         $this->_shots = array();
@@ -58,7 +60,8 @@ class BattleField {
      * @return int
      * @throws \LogicException
      */
-    public function positionShips(){
+    public function positionShips()
+    {
         if(empty($this->_ships))
             throw new \LogicException('No ships for positioning');
         $shipSectors = 0;
@@ -76,22 +79,24 @@ class BattleField {
      * @param $colLabel
      * @return bool|int
      */
-    public function processShot($rowLabel, $colLabel){
+    public function processShot($rowLabel, $colLabel)
+    {
         $rowKey = array_search($rowLabel, $this->_lettersMap) + 1;
         $colKey = $colLabel;
 
         if(isset($this->_shots[$rowKey][$colKey]))
+
             return false; //Already shot there - skipping
 
         $this->_shots[$rowKey][$colKey] = 1;
 
-        if (isset($this->_field[$rowKey][$colKey])){
+        if (isset($this->_field[$rowKey][$colKey])) {
             if($this->_isShipSunk($rowKey, $colKey)) //We hit a ship, is it sunk now?
+
                 return self::RESULT_SUNK;
 
             return self::RESULT_HIT;
         }
-
 
         return self::RESULT_MISS;
 
@@ -102,7 +107,8 @@ class BattleField {
      * in two modes - transparent and masked
      * @param int $mode
      */
-    public function drawField($mode = self::MODE_MASKED_MAP){
+    public function drawField($mode = self::MODE_MASKED_MAP)
+    {
         if(self::DEBUG_MODE)
             $mode = self::MODE_TRANSPARENT_MAP;
 
@@ -123,11 +129,11 @@ class BattleField {
                     //Displaying positioned and hit ship part
                     $this->_outputAdapter->write($this->_field[$i][$j]);
 
-                }elseif (isset($this->_shots[$i][$j])) {
+                } elseif (isset($this->_shots[$i][$j])) {
                     //Displaying missed shot
                     $this->_outputAdapter->write(self::MISSED_SHOT);
 
-                }elseif (isset($this->_field[$i][$j])) {
+                } elseif (isset($this->_field[$i][$j])) {
                     //Displaying ship part
                     if($mode === self::MODE_TRANSPARENT_MAP)
                         $this->_outputAdapter->write($this->_field[$i][$j]);
@@ -151,7 +157,8 @@ class BattleField {
      * Letters map property getter
      * @return array
      */
-    public function getLettersMap(){
+    public function getLettersMap()
+    {
         return $this->_lettersMap;
     }
 
@@ -159,7 +166,8 @@ class BattleField {
      * Ship entity setter
      * @param $ships
      */
-    public function setShips($ships){
+    public function setShips($ships)
+    {
         $this->_ships = $ships;
     }
 
@@ -168,7 +176,8 @@ class BattleField {
      * @param $ship
      * @throws \LogicException
      */
-    private function _positionShip(&$ship){
+    private function _positionShip(&$ship)
+    {
         //Get all available start points for the ship
         $startPoints = $this->_scanField($ship->getLength());
 
@@ -180,7 +189,6 @@ class BattleField {
             $choiceOrientation = self::VERTICAL_ID;
         else
             throw new \LogicException("Can't place the ships. Too much ships on a small field.");
-
 
         $rowKeysArr = array_keys($startPoints[$choiceOrientation]);
         $rowKey = array_rand($rowKeysArr);
@@ -200,7 +208,7 @@ class BattleField {
             }
         }
 
-        if(self::DEBUG_MODE){ //If debug mode is on - output some info about ship position
+        if (self::DEBUG_MODE) { //If debug mode is on - output some info about ship position
             $this->_outputAdapter->writeLine(
                 sprintf("orientation: %s, row: %s, col: %s\n%s", $choiceOrientation, $rowNum, $colNum, print_r($ship))
             );
@@ -214,7 +222,8 @@ class BattleField {
      * @param $shipLength
      * @return mixed
      */
-    private function _scanField($shipLength){
+    private function _scanField($shipLength)
+    {
         $startPoints[self::HORIZONTAL_ID] = array();
         $startPoints[self::VERTICAL_ID] = array();
 
@@ -258,10 +267,11 @@ class BattleField {
      * @param $colKey
      * @return bool
      */
-    private function _isShipSunk($rowKey, $colKey){
+    private function _isShipSunk($rowKey, $colKey)
+    {
         $isSunk = false;
         foreach ($this->_ships as &$ship) {
-            if($ship->checkSector($rowKey, $colKey)){
+            if ($ship->checkSector($rowKey, $colKey)) {
                 $ship->shots += 1;
                 $isSunk = $ship->isSunk();
             }
