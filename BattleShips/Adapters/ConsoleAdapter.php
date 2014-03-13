@@ -2,7 +2,6 @@
 
 namespace BattleShips\Adapters;
 
-
 class ConsoleAdapter implements IOAdapterInterface
 {
     private static $_instance;

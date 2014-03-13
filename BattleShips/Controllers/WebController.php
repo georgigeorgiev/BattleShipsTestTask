@@ -2,7 +2,6 @@
 
 namespace BattleShips\Controllers;
 
-
 use BattleShips\Adapters\WebAdapter;
 
 class WebController extends GameController
@@ -28,10 +27,10 @@ class WebController extends GameController
 
     public function init()
     {
-        if(!isset($_SESSION[self::SESSION_OBJECT_KEY])){
+        if (!isset($_SESSION[self::SESSION_OBJECT_KEY])) {
             $this->_ioAdapter = WebAdapter::getInstance();
             parent::init();
-        }else{
+        } else {
 
         }
         $this->_ioAdapter->displayPage();

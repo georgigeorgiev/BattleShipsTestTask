@@ -7,7 +7,6 @@ function __autoload($class)
     require implode('/', $parts). '.php';
 }
 
-
 use \BattleShips\Adapters\WebAdapter;
 
 $adapter = WebAdapter::getInstance();

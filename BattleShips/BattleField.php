@@ -18,7 +18,7 @@ class BattleField extends GameBoard
 
     /**
      * Positioning single ship randomly on available space
-     * @param \BattleShips\Ship $ship
+     * @param  \BattleShips\Ship $ship
      * @throws \LogicException
      */
     public function positionShip(&$ship)

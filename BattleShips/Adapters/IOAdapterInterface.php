@@ -2,7 +2,6 @@
 
 namespace BattleShips\Adapters;
 
-
 interface IOAdapterInterface
 {
     public static function getInstance();

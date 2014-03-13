@@ -9,14 +9,14 @@
 
 namespace BattleShips;
 
-
-class ShipFactory {
+class ShipFactory
+{
     const BATTLESHIP = 'Battleship';
     const DESTROYER = 'Destroyer';
 
     public static function create($ship)
     {
-        switch($ship){
+        switch ($ship) {
             case self::BATTLESHIP :
                 $ship = new Ship(self::BATTLESHIP, 5);
                 break;

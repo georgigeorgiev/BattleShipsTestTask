@@ -9,8 +9,8 @@
 
 namespace BattleShips;
 
-
-class GameBoard {
+class GameBoard
+{
     protected $_rows;
     protected $_cols;
     protected $_rowsLetterMap;

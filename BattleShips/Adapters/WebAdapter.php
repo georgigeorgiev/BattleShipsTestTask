@@ -9,7 +9,6 @@
 
 namespace BattleShips\Adapters;
 
-
 class WebAdapter implements IOAdapterInterface
 {
     const TEMPLATE_FILE = 'BattleShips/Templates/index.html';
