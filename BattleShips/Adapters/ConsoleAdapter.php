@@ -1,22 +1,15 @@
 <?php
 
-namespace BattleShips;
+namespace BattleShips\Adapters;
 
-/**
- * Class ConsoleAdapter
- * @package BattleShips
- */
-class ConsoleAdapter
+
+class ConsoleAdapter implements IOAdapterInterface
 {
     private static $_instance;
 
-    /**
-     * Singleton class instance
-     * @return ConsoleAdapter
-     */
     public static function getInstance()
     {
-        if (self::$_instance==null) {
+        if (self::$_instance == null) {
             self::$_instance = new ConsoleAdapter();
         }
 
@@ -32,9 +25,9 @@ class ConsoleAdapter
         echo $line . "\n";
     }
 
-    public function write($line)
+    public function write($string)
     {
-        echo $line;
+        echo $string;
     }
 
     public function writeSpace()
@@ -50,7 +43,7 @@ class ConsoleAdapter
     public function requestInput($requestMessage)
     {
         echo $requestMessage;
-        $handle = fopen ("php://stdin","r");
+        $handle = fopen("php://stdin", "r");
         $userInput = fgets($handle);
         fclose($handle);
 

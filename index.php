@@ -6,7 +6,7 @@ if (!defined("STDIN"))
 function __autoload($class)
 {
     $parts = explode('\\', $class);
-    require 'classes/'. end($parts) . '.php';
+    require 'BattleShips/'. end($parts) . '.php';
 }
 
 use BattleShips\ConsoleController;
