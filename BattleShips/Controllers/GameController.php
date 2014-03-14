@@ -2,6 +2,7 @@
 
 namespace BattleShips\Controllers;
 
+use BattleShips\Adapters\IOAdapterInterface;
 use BattleShips\BattleField;
 use BattleShips\ShipFactory;
 
@@ -139,4 +140,8 @@ class GameController
         $this->_allowedCommands[] = self::CHEAT_SHOW;
     }
 
+    protected function _setIOAdapter(IOAdapterInterface $ioAdapter)
+    {
+        $this->_ioAdapter = $ioAdapter;
+    }
 }

@@ -28,16 +28,11 @@ class WebController extends GameController
     public function init()
     {
         if (!isset($_SESSION[self::SESSION_OBJECT_KEY])) {
-            $this->_ioAdapter = WebAdapter::getInstance();
+            $this->_setIOAdapter(WebAdapter::getInstance());
             parent::init();
         } else {
 
         }
         $this->_ioAdapter->displayPage();
-    }
-
-    public function getShips()
-    {
-        return $this->_ships;
     }
 }
