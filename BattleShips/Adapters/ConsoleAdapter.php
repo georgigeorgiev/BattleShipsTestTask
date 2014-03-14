@@ -4,21 +4,6 @@ namespace BattleShips\Adapters;
 
 class ConsoleAdapter implements IOAdapterInterface
 {
-    private static $_instance;
-
-    public static function getInstance()
-    {
-        if (self::$_instance == null) {
-            self::$_instance = new ConsoleAdapter();
-        }
-
-        return self::$_instance;
-    }
-
-    private function __construct()
-    {
-    }
-
     public function writeLine($line)
     {
         echo $line . "\n";
@@ -47,5 +32,10 @@ class ConsoleAdapter implements IOAdapterInterface
         fclose($handle);
 
         return $userInput;
+    }
+
+    public function flush()
+    {
+        exit;
     }
 }

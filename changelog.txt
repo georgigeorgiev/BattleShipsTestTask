@@ -1,1 +1,2 @@
 02.03.2014 - Implemented all functionalities from main specifications
+14.03.2014 - Redesigning the implementation. Web environment added.

@@ -1,6 +1,6 @@
 <?php
 
-namespace BattleShips;
+namespace BattleShips\Entities;
 
 /**
  * Class BattleField
@@ -13,12 +13,13 @@ class BattleField extends GameBoard
     const MISSED_SHOT = '-';
     const HORIZONTAL_ID = 0;
     const VERTICAL_ID = 1;
+    const RESULT_MISS = 0;
+    const RESULT_HIT = 1;
 
     public $_field;
 
     /**
-     * Positioning single ship randomly on available space
-     * @param  \BattleShips\Ship $ship
+     * @param  \BattleShips\Entities\Ship $ship
      * @throws \LogicException
      */
     public function positionShip(&$ship)
@@ -54,12 +55,6 @@ class BattleField extends GameBoard
         }
     }
 
-    /**
-     * Scanning field for available ship space
-     * Returning available start points for drawing ships
-     * @param $shipLength
-     * @return mixed
-     */
     private function _scanField($shipLength)
     {
         $startPoints[self::HORIZONTAL_ID] = array();
@@ -96,5 +91,10 @@ class BattleField extends GameBoard
         }
 
         return $startPoints;
+    }
+
+    public function checkSector($rowKey, $colKey)
+    {
+        return (isset($this->_field[$rowKey][$colKey])) ? self::RESULT_HIT : self::RESULT_MISS;
     }
 }

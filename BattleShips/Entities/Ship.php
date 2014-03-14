@@ -1,6 +1,6 @@
 <?php
 
-namespace BattleShips;
+namespace BattleShips\Entities;
 
 /**
  * Class Ship

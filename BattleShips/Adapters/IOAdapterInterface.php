@@ -4,8 +4,6 @@ namespace BattleShips\Adapters;
 
 interface IOAdapterInterface
 {
-    public static function getInstance();
-
     public function writeLine($line);
 
     public function write($string);
@@ -15,4 +13,6 @@ interface IOAdapterInterface
     public function writeNewLine();
 
     public function requestInput($requestMessage);
+
+    public function flush();
 }

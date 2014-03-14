@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: georgiev
- * Date: 3/12/14
- * Time: 9:47 PM
- * To change this template use File | Settings | File Templates.
- */
 
-namespace BattleShips;
+namespace BattleShips\Entities;
 
 class ShipFactory
 {

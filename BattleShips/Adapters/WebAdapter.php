@@ -5,26 +5,12 @@ namespace BattleShips\Adapters;
 class WebAdapter implements IOAdapterInterface
 {
     const TEMPLATE_FILE = 'BattleShips/Templates/index.html';
-    const NEW_LINE = "<br />\n";
+    const NEW_LINE = "<br />";
     const SPACE = '&nbsp;';
-    const USER_INPUT_FORM = '<form method="post"><input type="text" name="user_command" /></form>';
+    const USER_INPUT_FORM = '<form method="post">%s<input type="text" name="user_command" /><input type="submit" /></form>';
     const CONTENT_TAG = '[CONTENT]';
 
     private $_output;
-    private static $_instance;
-
-    public static function getInstance()
-    {
-        if (self::$_instance == null) {
-            self::$_instance = new WebAdapter();
-        }
-
-        return self::$_instance;
-    }
-
-    private function __construct()
-    {
-    }
 
     public function writeLine($line)
     {
@@ -48,13 +34,21 @@ class WebAdapter implements IOAdapterInterface
 
     public function requestInput($requestMessage)
     {
-        $this->_output .= $requestMessage . self::USER_INPUT_FORM;
+        $this->_output .= sprintf(self::USER_INPUT_FORM, $requestMessage) . self::NEW_LINE;
     }
 
-    public function displayPage()
+    public function flush()
+    {
+        $this->_displayPage();
+        $this->_output = '';
+        exit;
+    }
+
+    private function _displayPage()
     {
         $html = file_get_contents(self::TEMPLATE_FILE);
         $html = str_replace(self::CONTENT_TAG, $this->_output, $html);
         echo $html;
     }
+
 }

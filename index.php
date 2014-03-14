@@ -1,14 +1,14 @@
 <?php
-
-if (!defined("STDIN"))
-    die("Please run this from the console! <br /> $ php index.php");
-
 function __autoload($class)
 {
     $parts = explode('\\', $class);
-    require 'BattleShips/'. end($parts) . '.php';
+    require implode('/', $parts) . '.php';
 }
 
 use BattleShips\ConsoleController;
+use BattleShips\WebController;
 
-ConsoleController::init();
+session_start();
+
+$controller = (defined("STDIN")) ? ConsoleController::getInstance() : WebController::getInstance();
+$controller->init();
